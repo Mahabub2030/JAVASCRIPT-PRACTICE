@@ -12,6 +12,17 @@ This repository is dedicated to practicing and mastering JavaScript through hand
 - **API & JSON Handling**: Fetching and processing data from external APIs.
 - **Asynchronous JavaScript**: Understanding promises, callbacks, and async/await.
 - **Project Development**: Small projects like to-do apps, calculators, and interactive forms.
+## Key Differences: `var` vs `let` vs `const`
+
+| Feature              | `var`                          | `let`                          | `const`                          |
+|----------------------|--------------------------------|--------------------------------|----------------------------------|
+| **Scope**           | Function-scoped               | Block-scoped                  | Block-scoped                    |
+| **Can be redeclared?** | ✅ Yes                        | ❌ No                          | ❌ No                            |
+| **Can be reassigned?** | ✅ Yes                        | ✅ Yes                         | ❌ No                            |
+| **Hoisting?**       | ✅ Hoisted (*initialized as `undefined`*) | ✅ Hoisted (*not initialized*) | ✅ Hoisted (*not initialized*) |
+| **Recommended?**    | ❌ No (*avoid using*)         | ✅ Yes (*preferred*)          | ✅ Yes (*for constants*)        |
+
+
 
 ## How to Use This Repository
 1. Clone this repository:
