@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E6234;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            width: 350px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            background: #2E6234;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .delete {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadTasks);
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+            if (taskText === "") return;
+
+            let taskList = document.getElementById("taskList");
+            let li = document.createElement("li");
+            li.innerHTML = `${taskText} <button class="delete" onclick="deleteTask(this)">X</button>`;
+            taskList.appendChild(li);
+
+            saveTask(taskText);
+            taskInput.value = "";
+        }
+
+        function deleteTask(button) {
+            let li = button.parentElement;
+            removeTask(li.innerText.replace("X", "").trim());
+            li.remove();
+        }
+
+        function saveTask(task) {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.push(task);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            let taskList = document.getElementById("taskList");
+            tasks.forEach(task => {
+                let li = document.createElement("li");
+                li.innerHTML = `${task} <button class="delete" onclick="deleteTask(this)">X</button>`;
+                taskList.appendChild(li);
+            });
+        }
+
+        function removeTask(task) {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks = tasks.filter(t => t !== task);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+    </script>
+
+</body>
+</html>
